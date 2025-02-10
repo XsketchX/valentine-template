@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Another Surprise for You! 💖</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #fff0f5;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #e60073;
+            margin-top: 50px;
+        }
+        p {
+            font-size: 20px;
+            color: #ff3366;
+        }
+        img {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            transition: opacity 1s ease-in-out;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #e60073;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #c4005d;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Will you be my valentine? ❤️</h1>
+    <p id="message">Be honest! 😘</p>
+    <img id="loveImage" src="https://assets.onecompiler.app/438mteb7q/438nczm7n/milk-and-mocha-love.gif" alt="Love Image">
+
+    <div class="buttons">
+        <button onclick="yesPressed()">Yes</button>
+        <button id="noButton" onclick="noPressed()">No</button>
+    </div>
+
+    <p id="responseMessage" class="hidden"></p>
+
+    <button id="continueButton" class="hidden" onclick="continueNext()">Tap to Continue</button>
+
+    <script>
+        let noCount = 0;
+        const noMessages = [
+            "Are you sure? 😢",
+            "Think again... 💔",
+            "Do you not love me? 😞",
+            "I'll be very sad... 😭",
+            "Last chance! 💕"
+        ];
+
+        function noPressed() {
+            if (noCount < noMessages.length) {
+                document.getElementById("responseMessage").textContent = noMessages[noCount];
+                document.getElementById("responseMessage").classList.remove("hidden");
+                noCount++;
+            }
+            if (noCount === 5) {
+                document.getElementById("noButton").remove(); // Remove No button
+                let yesButton = document.createElement("button");
+                yesButton.textContent = "Yes";
+                yesButton.onclick = yesPressed;
+                document.querySelector(".buttons").appendChild(yesButton);
+            }
+        }
+
+        function yesPressed() {
+            document.getElementById("loveImage").src = "https://assets.onecompiler.app/438mteb7q/438nczm7n/images.jpg"; // Change image
+            document.getElementById("message").textContent = "Yayyy! I knew you love me! 💖";
+            document.getElementById("responseMessage").classList.add("hidden"); // Hide previous messages
+            document.getElementById("continueButton").classList.remove("hidden"); // Show continue button
+        }
+
+        function continueNext() {
+            window.location.href = "final.html"; // Redirect to the next page
+        }
+    </script>
+
+</body>
+</html>
