@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Love Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ff9a9e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .options {
+            margin: 20px 0;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px;
+            background-color: #ff69b4;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .options input {
+            margin-right: 10px;
+        }
+
+        .options label:hover {
+            background-color: #ff1493;
+        }
+
+        #submitButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #resultContainer {
+            display: none;
+        }
+
+        #continueButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Fun Love Quiz</h1>
+    <div class="question-container" id="questionContainer">
+        <h2 id="questionText"></h2>
+        <div class="options" id="optionsContainer"></div>
+        <button id="submitButton" onclick="submitAnswer()">Submit</button>
+    </div>
+
+    <div id="resultContainer">
+        <h2>Your Score: <span id="score"></span>/10</h2>
+        <button id="continueButton" onclick="window.location.href='valentine message chalenge.html'">Tap Here to Continue</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is your idea of the perfect date?",
+                options: ["A candlelight dinner", "Movie night", "A walk in the park", "Adventure sports"],
+                correctAnswer: 0
+            },
+            {
+                question: "How do you like to show love?",
+                options: ["Gift giving", "Words of affirmation", "Acts of service", "Physical touch"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is your favorite romantic movie?",
+                options: ["The Notebook", "Titanic", "La La Land", "The Fault in Our Stars"],
+                correctAnswer: 0
+            },
+            {
+                question: "What is the best way to surprise your partner?",
+                options: ["Surprise trip", "Heartfelt letter", "Unexpected gesture", "A fancy dinner"],
+                correctAnswer: 2
+            },
+            {
+                question: "What would you do if your partner is upset?",
+                options: ["Listen to them", "Give them space", "Comfort them", "Offer advice"],
+                correctAnswer: 0
+            },
+            {
+                question: "How long have you been in a relationship?",
+                options: ["Less than a year", "1-3 years", "3-5 years", "More than 5 years"],
+                correctAnswer: 2
+            },
+            {
+                question: "What would be your ideal Valentine’s gift?",
+                options: ["Jewelry", "A handwritten letter", "A cute plushie", "A spa day"],
+                correctAnswer: 1
+            },
+            {
+                question: "What is your love language?",
+                options: ["Words of affirmation", "Physical touch", "Acts of service", "Quality time"],
+                correctAnswer: 3
+            },
+            {
+                question: "What is your favorite type of date night?",
+                options: ["Stay-at-home movie night", "Dinner and a show", "Weekend getaway", "Outdoor adventure"],
+                correctAnswer: 3
+            },
+            {
+                question: "What is your dream romantic vacation?",
+                options: ["Paris", "Hawaii", "Santorini", "Tokyo"],
+                correctAnswer: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const totalQuestions = questions.length;
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById("questionText").innerText = question.question;
+            const optionsContainer = document.getElementById("optionsContainer");
+            optionsContainer.innerHTML = "";  // Reset options
+
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement("label");
+                optionElement.innerHTML = `
+                    <input type="radio" name="answer" value="${index}" /> ${option}
+                `;
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function submitAnswer() {
+            const selectedOption = document.querySelector("input[name='answer']:checked");
+            if (selectedOption) {
+                const selectedAnswer = parseInt(selectedOption.value);
+                if (selectedAnswer === questions[currentQuestionIndex].correctAnswer) {
+                    score++;
+                }
+
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < totalQuestions) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            } else {
+                alert("Please select an option before submitting.");
+            }
+        }
+
+        function showResults() {
+            document.getElementById("questionContainer").style.display = "none";
+            document.getElementById("resultContainer").style.display = "block";
+            document.getElementById("score").innerText = score;
+            document.getElementById("continueButton").style.display = "inline-block";
+        }
+
+        window.onload = function() {
+            document.getElementById("questionContainer").style.display = "block";
+            loadQuestion(); // Load the first question on page load
+        };
+    </script>
+
+</body>
+</html>
